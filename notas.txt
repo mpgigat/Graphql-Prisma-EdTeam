@@ -1,0 +1,10 @@
+crea package.jsoon
+    npm init-y  
+
+git init
+
+crear
+
+.gitignore   //valerse de gitignore.io
+
+hub create  // vincula el proyecto automaticamente con github  //https://github.com/github/hub  todo desde powershell
