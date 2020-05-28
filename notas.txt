@@ -5,6 +5,42 @@ git init
 
 crear
 
-.gitignore   //valerse de gitignore.io
+.gitignore // valerse de gitignore.io
 
-hub create  // vincula el proyecto automaticamente con github  //https://github.com/github/hub  todo desde powershell
+
+
+
+http://dbeaver.io  //para manejar la base de datos.
+docker pull postgres
+crear contenedor    POSTGRES_PASSWORD es una variable de entorno, -p es el puerto -d subproceso
+    docker run --name edbookstore -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres
+
+
+
+
+instalar prisma
+    npm i -D @prisma/cli
+    luego lanzar la configuracion inicial 
+    npx prisma2 init  me crea una carpeta con 2 archivos
+    en env cambiar user y pass
+    ahora hacer que prisma haga introspecion con la bd
+    npx prisma2 introspect
+    el comando anterior crea un esquema automatico super....
+    ahora para poder utilizar los modelos y convertirlos a codigo
+    npm i -S @prisma/client
+    npx prisma2 generate
+
+    introspect y generate se hacen cada vez de cambios en el esquema
+
+    npm i -D @babel/plugin-transform-runtime   //PLUGIN PARA QUE RECONOZCA ASYNC
+                      //no olvidar cambiar archivo .babelrc con "plugin.....
+
+    npm i -S jsonwebtoken bcrypt
+        jsonwebtoken  (token de identificacion para autorizar)
+        bcryp encriptar el pass
+
+        DESPUES de implemnetado hay que autorizar todo.  para pasar el token
+        usar HTTP HEADERS Y AHI    CREAR el sigueinte objeto
+        {
+            "Authorization":"Bearer Aqui el token"
+        }

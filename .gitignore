@@ -43,8 +43,8 @@ bower_components
 construir / liberar
 
 # Directorios de dependencias
-node_modules /
-jspm_packages /
+node_modules
+jspm_packages
 
 # TypeScript v1 archivos de declaración
 tipings /

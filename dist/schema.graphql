@@ -1,0 +1,162 @@
+type Query{
+    hello(
+        name:String
+    ):String!
+    cantidad:Int
+    user(id:ID):[User!]!
+    author(
+        id:ID,
+        first:Int       #Cantidad de registros
+        skip:Int        #cuantos registros
+        orderBy:AuthorOrderByInput
+    ):[Author!]!   
+    book(
+        id:ID
+        first:Int       #Cantidad de registros
+        skip:Int        #cuantos registros
+        orderBy:BookOrderByInput
+    ):[Book!]!
+}
+type Author{
+    id:ID!
+    name:String!
+    country:String!
+    register_by:User!
+    books:[Book!]!
+}
+
+type User{
+    id:ID!
+    name:String!
+    lastname:String!
+    email:String!
+}
+
+type Book{
+    id:ID!
+    title:String!
+    description:String!
+    quantity:Int!
+    price:Int!
+    writted_by:Author!
+    register_by:User!
+}
+
+type Mutation{
+    signUp(
+        data:signUpInput
+    ):AuthPayload!
+    logIn(
+        data:logInInput
+    ):AuthPayload!
+    updateUser(
+        id:ID!
+        data:updateUserInput
+    ):User!
+    createAuthor(
+        data:createAuthorInput        
+    ):Author!
+    updateAuthor(
+        id:ID!
+        data:updateAuthorInput  
+    ):Author!
+    createBook(
+        title:String!
+        description:String!
+        quantity:Int!
+        price:Int!
+        writted_by:ID!
+        register_by:ID!
+    ):Book!
+    updateBook(
+        id:ID!
+        title:String
+        description:String
+        quantity:Int
+        price:Int
+        writted_by:ID
+        register_by:ID
+    ):Book!
+    deleteBook(
+        id:ID!        
+    ):Book!
+}
+
+enum MutationType {
+    CREATED
+    UPDATED
+    DELETED
+}
+
+type Subscription{
+    count:Int!
+    author: AuthorSubscriptionPayload!
+    #book:BookSubscriptionPayload!
+    book(authorId: ID!):BookSubscriptionPayload!
+}
+
+input signUpInput{
+    name:String!
+    lastname:String!
+    email:String!
+    password:String!
+}
+input logInInput{
+    email:String!
+    password:String!
+}
+type AuthPayload{
+    user:User!
+    token:String!
+}
+
+input updateUserInput{
+    name:String
+    lastname:String
+    email:String
+    password:String
+}
+
+input createAuthorInput{
+    name:String!
+    country:String!
+    register_by:ID!
+}
+input updateAuthorInput{
+    name:String
+    country:String
+    register_by:ID   
+}
+
+input AuthorOrderByInput{
+    id:OrderByArg
+    name:OrderByArg
+    country:OrderByArg
+}
+
+input BookOrderByInput{
+    id:OrderByArg
+    title:OrderByArg
+    quantity:OrderByArg
+    price:OrderByArg
+}
+
+enum OrderByArg{
+    asc,
+    desc
+}
+
+type AuthorSubscriptionPayload{
+    mutation: MutationType!
+    data:Author!
+}
+type BookSubscriptionPayload{
+    mutation:MutationType!
+    id:ID!
+    title:String!
+        description:String!
+        quantity:Int!
+        price:Int!
+        writted_by:ID!
+        register_by:ID!
+}
